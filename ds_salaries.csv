@@ -1,4 +1,4 @@
-,work_year,experience_level,employment_type,job_title,salary,salary_currency,salary_in_usd,employee_residence,remote_ratio,company_location,company_size
+id,work_year,experience_level,employment_type,job_title,salary,salary_currency,salary_in_usd,employee_residence,remote_ratio,company_location,company_size
 0,2020,MI,FT,Data Scientist,70000,EUR,79833,DE,0,DE,L
 1,2020,SE,FT,Machine Learning Scientist,260000,USD,260000,JP,0,JP,S
 2,2020,SE,FT,Big Data Engineer,85000,GBP,109024,GB,50,GB,M
