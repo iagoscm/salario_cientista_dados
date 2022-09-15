@@ -2,7 +2,7 @@
 
 ### 🤔 Sobre o Projeto
 
-O projeto que será tem a finalidade de criar uma árvore binária através de um arquivo .csv sobre salários de cientistas de dados, na intenção de gerar um relatório acerca do mesmo. O projeto é feito em linguagem C e usa conceitos de estrutura de dados, onde trabalhamos com alocação de memória e nós em árvores binárias.
+O projeto que será tem a finalidade de criar uma árvore binária através de um [arquivo .csv](https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries) sobre salários de cientistas de dados, na intenção de gerar um relatório acerca do mesmo. O projeto é feito em linguagem C e usa conceitos de estrutura de dados, onde trabalhamos com alocação de memória e nós em árvores binárias.
 
 ### :handshake: Colaboradores:
 
