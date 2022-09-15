@@ -11,10 +11,11 @@ typedef struct Cientista{
 
 void instala(Cientista ** dado, int salario, int linha);
 
+int contadorLinhas();
+
 int main(int argc, char const *argv[])
 {
     int item;
-    int linhas[609];
     Cientista *arvore;
     char nome[50];
 
@@ -32,10 +33,20 @@ int main(int argc, char const *argv[])
             scanf(" %s", nome);
 
             FILE *arqOriginal;
+            int quantidadeLinhas;
+            long int *linhas;
             char ch;
             char primeiraLinha[300];
+
+            quantidadeLinhas = contadorLinhas(nome);
+
+            linhas = (long int *) malloc(quantidadeLinhas * sizeof(long int));
+
             arqOriginal = fopen(nome, "r");
             fscanf(arqOriginal, "%s", primeiraLinha);
+            linhas[0] = ftell(arqOriginal);
+
+            
 
             // colunas do arquivo
 
@@ -43,11 +54,11 @@ int main(int argc, char const *argv[])
             int work_year, remote_ratio;
             char experience_level[10], employment_type[10], job_title[100], salary_currency[10], employee_residence[10], company_location[10], company_size[10];
             int salary, salary_in_usd;
-            while (fscanf(arqOriginal, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^,]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) != EOF)
+            while (fscanf(arqOriginal, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) == 12)
             {
-                printf("%d\n", salary);
-            }
-            
+                linhas[id+1] = ftell(arqOriginal);
+                instala(&arvore,salary,id);
+            }            
             
             break;
         
@@ -89,3 +100,21 @@ void instala(Cientista ** dado, int salario, int linha) {
         *dado = temp;
     }
 };
+
+int contadorLinhas(char nome[]) {
+    FILE *fp;
+    char linha[300];
+    int count = 0;
+
+    fp = fopen(nome, "r");
+    fscanf(fp, "%s", linha);
+    int id;
+    int work_year, remote_ratio;
+    char experience_level[10], employment_type[10], job_title[100], salary_currency[10], employee_residence[10], company_location[10], company_size[10];
+    int salary, salary_in_usd;
+    while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) == 12)
+    {
+        count++;
+    }
+    return count;
+}
