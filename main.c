@@ -10,7 +10,7 @@ typedef struct Cientista{
 } Cientista;
 
 void instala(Cientista ** dado, int salario, int linha);
-void imprime(Cientista* dado);
+void imprime(Cientista* dado, long int *linhas, char nome[50]);
 
 int contadorLinhas();
 
@@ -44,6 +44,7 @@ int main(int argc, char const *argv[])
             linhas = (long int *) malloc(quantidadeLinhas * sizeof(long int));
 
             arqOriginal = fopen(nome, "r");
+            fseek(arqOriginal, 0, SEEK_SET);
             fscanf(arqOriginal, "%s", primeiraLinha);
             linhas[0] = ftell(arqOriginal);
 
@@ -62,7 +63,7 @@ int main(int argc, char const *argv[])
             break;
 
         case 2:
-            imprime(arvore);
+            imprime(arvore, linhas, nome);
             break;
 
         case 3:
@@ -99,11 +100,16 @@ void instala(Cientista ** dado, int salario, int linha) {
     }
 };
 
-void imprime(Cientista *raiz) {
+void imprime(Cientista *raiz, long int *linhas, char nome[50]) {
+    FILE *arqOriginal;
+    arqOriginal = fopen(nome, "r");
+    char linha[500];
     if(raiz){
-        imprime(raiz->esquerda);
-        printf("%d\n", raiz->salario);
-        imprime(raiz->direita);
+        imprime(raiz->esquerda, linhas, nome);
+        //fseek(arqOriginal, linhas[raiz->linha], SEEK_CUR);
+        //fgets(linha, 500, arqOriginal);
+        printf("%s\n", linhas[raiz->linha]);
+        imprime(raiz->direita, linhas, nome);
     }
 }
 
