@@ -10,6 +10,7 @@ typedef struct Cientista{
 } Cientista;
 
 void instala(Cientista ** dado, int salario, int linha);
+void imprime(Cientista* dado);
 
 int contadorLinhas();
 
@@ -46,8 +47,6 @@ int main(int argc, char const *argv[])
             fscanf(arqOriginal, "%s", primeiraLinha);
             linhas[0] = ftell(arqOriginal);
 
-            
-
             // colunas do arquivo
 
             int id;
@@ -57,27 +56,27 @@ int main(int argc, char const *argv[])
             while (fscanf(arqOriginal, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) == 12)
             {
                 linhas[id+1] = ftell(arqOriginal);
-                instala(&arvore,salary,id);
-            }            
-            
+                instala(&arvore,salary_in_usd,id);
+            }
+
             break;
-        
+
         case 2:
-            printf("Emitir Relatório\n");
+            imprime(arvore);
             break;
-        
+
         case 3:
             printf("Sair\n");
             break;
-        
+
         default:
             printf("Opção inválida!!\n");
             break;
         }
     } while (item != 3);
-    
-    
-    
+
+
+
     return 0;
 }
 
@@ -96,10 +95,17 @@ void instala(Cientista ** dado, int salario, int linha) {
         temp->direita = NULL;
         temp->salario = salario;
         temp->linha = linha;
-
         *dado = temp;
     }
 };
+
+void imprime(Cientista *raiz) {
+    if(raiz){
+        imprime(raiz->esquerda);
+        printf("%d\n", raiz->salario);
+        imprime(raiz->direita);
+    }
+}
 
 int contadorLinhas(char nome[]) {
     FILE *fp;
