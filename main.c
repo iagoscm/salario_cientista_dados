@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
             break;
 
         case 2:
-            printf("Ano de trabalho | Experiência | Tipo de emprego | Residência do empregado | Título do trabalho | Salário em USD  \n");
+            printf("Ano de trabalho | Experiência | Tipo de emprego | Residência do empregado | Salário em USD | Título do trabalho   \n");
             imprime(arvore, linhas, nome);
             break;
 
