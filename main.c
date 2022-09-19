@@ -63,6 +63,7 @@ int main(int argc, char const *argv[])
             break;
 
         case 2:
+            printf("Ano de trabalho | Experiência | Tipo de emprego | Residência do empregado | Salário em USD | Título do trabalho   \n");
             imprime(arvore, linhas, nome);
             break;
 
@@ -102,13 +103,17 @@ void instala(Cientista ** dado, int salario, int linha) {
 
 void imprime(Cientista *raiz, long int *linhas, char nome[50]) {
     FILE *arqOriginal;
-    arqOriginal = fopen(nome, "r");
+    arqOriginal = fopen(nome, "r+b");
     char linha[500];
+    int id;
+    int work_year, remote_ratio;
+    char experience_level[10], employment_type[10], job_title[100], salary_currency[10], employee_residence[10], company_location[10], company_size[10];
+    int salary, salary_in_usd;
     if(raiz){
         imprime(raiz->esquerda, linhas, nome);
-        //fseek(arqOriginal, linhas[raiz->linha], SEEK_CUR);
-        //fgets(linha, 500, arqOriginal);
-        printf("%s\n", linhas[raiz->linha]);
+        fseek(arqOriginal, linhas[raiz->linha]+1, SEEK_CUR);
+        fscanf(arqOriginal, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size);
+        printf("%d            | %s          | %s              | %s                      | %d | %s \n", work_year, experience_level, employment_type, employee_residence, salary_in_usd, job_title );
         imprime(raiz->direita, linhas, nome);
     }
 }
