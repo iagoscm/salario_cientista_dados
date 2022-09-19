@@ -11,6 +11,7 @@ typedef struct Cientista{
 
 void instala(Cientista ** dado, int salario, int linha);
 void imprime(Cientista* dado, long int *linhas, char nome[50]);
+void libera(Cientista *dado);
 
 int contadorLinhas();
 
@@ -68,7 +69,7 @@ int main(int argc, char const *argv[])
             break;
 
         case 3:
-            printf("Sair\n");
+            libera(arvore);
             break;
 
         default:
@@ -103,7 +104,7 @@ void instala(Cientista ** dado, int salario, int linha) {
 
 void imprime(Cientista *raiz, long int *linhas, char nome[50]) {
     FILE *arqOriginal;
-    arqOriginal = fopen(nome, "r+b");
+    arqOriginal = fopen(nome, "r");
     char linha[500];
     int id;
     int work_year, remote_ratio;
@@ -136,6 +137,14 @@ int contadorLinhas(char nome[]) {
     return count;
 }
 
-void remove(){
-    
+void libera(Cientista *dado){
+    if(dado){
+        libera(dado->esquerda);
+        libera(dado->direita);
+        /*(*dado)->esquerda = NULL;
+        (*dado)->direita = NULL;
+        (*dado)->salario = 0;
+        (*dado)->linha = 0;*/
+        free(dado);
+    }
 }
