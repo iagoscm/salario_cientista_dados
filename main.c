@@ -130,3 +130,7 @@ int contadorLinhas(char nome[]) {
     }
     return count;
 }
+
+void remove(){
+    
+}
