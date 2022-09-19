@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
         {
         case 1:
             printf("Digite o nome do arquivo que deseja carregar: ");
-            scanf(" %s", nome);
+            scanf("%s", nome);
 
             FILE *arqOriginal;
             int quantidadeLinhas;
@@ -40,16 +40,18 @@ int main(int argc, char const *argv[])
             char ch;
             char primeiraLinha[300];
 
+
             quantidadeLinhas = contadorLinhas(nome);
 
             linhas = (long int *) malloc(quantidadeLinhas * sizeof(long int));
+            arqOriginal = fopen(nome, "r");
 
-            if(arqOriginal = fopen(nome, "r")){
+            if(arqOriginal){
                 fseek(arqOriginal, 0, SEEK_SET);
                 fscanf(arqOriginal, "%s", primeiraLinha);
                 linhas[0] = ftell(arqOriginal);
 
-                // colunas do arquivo
+            // colunas do arquivo
 
                 int id;
                 int work_year, remote_ratio;
@@ -60,16 +62,8 @@ int main(int argc, char const *argv[])
                     linhas[id+1] = ftell(arqOriginal);
                     instala(&arvore,salary_in_usd,id);
                 }
-            }else{
-                printf("Erro ao abrir o arquivo");
-            }
-
-            fclose(arqOriginal);
-
-            if(arvore!=NULL){
                 printf("Arvore criada com sucesso!\n");
-            }else{
-                printf("Erro ao criar arvore!\n");
+
             }
             break;
 
@@ -142,16 +136,20 @@ int contadorLinhas(char nome[]) {
     int count = 0;
 
     fp = fopen(nome, "r");
-    fscanf(fp, "%s", linha);
-    int id;
-    int work_year, remote_ratio;
-    char experience_level[10], employment_type[10], job_title[100], salary_currency[10], employee_residence[10], company_location[10], company_size[10];
-    int salary, salary_in_usd;
-    while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) == 12)
-    {
-        count++;
+    if(fp){
+        fscanf(fp, "%s", linha);
+        int id;
+        int work_year, remote_ratio;
+        char experience_level[10], employment_type[10], job_title[100], salary_currency[10], employee_residence[10], company_location[10], company_size[10];
+        int salary, salary_in_usd;
+        while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%d,%[^,],%d,%[^,],%d,%[^,],%[^\n]", &id, &work_year, experience_level, employment_type, job_title, &salary, salary_currency, &salary_in_usd, employee_residence, &remote_ratio, company_location, company_size) == 12)
+        {
+            count++;
+        }
+        return count;
+    }else{
+        printf("\nErro ao abrir o arquivo!\n");
     }
-    return count;
 }
 
 void libera(Cientista *dado){
